@@ -1,31 +1,48 @@
 package model;
 
+import java.util.Date;
+
 public class Document {
+    private int idDocument;
+    private String titreDocument;
+    private String auteur;
+    private String editeur;
+    private Date datePublication;
+    private int nbPretTotal;
+    private int nbExemplaires;
+    private String localisation;
+    private  String genre;
 
-    protected int documentId;
-    protected String titre;
-    protected String auteur;
+    public Document () {
+    }
 
-    public Document ( int documentId , String titre , String auteur ) {
-        this.documentId = documentId;
-        this.titre = titre;
+    public Document ( int idDocument , String titreDocment , String auteur , String editeur , Date datePublication ,
+                      int nbPretTotal , int nbExemplaires , String localisation , String genre ) {
+        this.idDocument = idDocument;
+        this.titreDocument = titreDocment;
         this.auteur = auteur;
+        this.editeur = editeur;
+        this.datePublication = datePublication;
+        this.nbPretTotal = nbPretTotal;
+        this.nbExemplaires = nbExemplaires;
+        this.localisation = localisation;
+        this.genre = genre;
     }
 
-    public int getDocumentId () {
-        return documentId;
+    public int getIdDocument () {
+        return idDocument;
     }
 
-    public void setDocumentId ( int documentId ) {
-        this.documentId = documentId;
+    public void setIdDocument ( int idDocument ) {
+        this.idDocument = idDocument;
     }
 
-    public String getTitre () {
-        return titre;
+    public String getTitreDocument () {
+        return titreDocument;
     }
 
-    public void setTitre ( String titre ) {
-        this.titre = titre;
+    public void setTitreDocument ( String titreDocument ) {
+        this.titreDocument = titreDocument;
     }
 
     public String getAuteur () {
@@ -36,12 +53,51 @@ public class Document {
         this.auteur = auteur;
     }
 
-    @Override
-    public String toString () {
-        return "Document{" +
-                "documentId=" + documentId +
-                ", titre='" + titre + '\'' +
-                ", auteur='" + auteur + '\'' +
-                '}';
+    public String getEditeur () {
+        return editeur;
+    }
+
+    public void setEditeur ( String editeur ) {
+        this.editeur = editeur;
+    }
+
+    public Date getDatePublication () {
+        return datePublication;
+    }
+
+    public void setDatePublication ( Date datePublication ) {
+        this.datePublication = datePublication;
+    }
+
+    public int getNbPretTotal () {
+        return nbPretTotal;
+    }
+
+    public void setNbPretTotal ( int nbPretTotal ) {
+        this.nbPretTotal = nbPretTotal;
+    }
+
+    public int getNbExemplaires () {
+        return nbExemplaires;
+    }
+
+    public void setNbExemplaires ( int nbExemplaires ) {
+        this.nbExemplaires = nbExemplaires;
+    }
+
+    public String getLocalisation () {
+        return localisation;
+    }
+
+    public void setLocalisation ( String localisation ) {
+        this.localisation = localisation;
+    }
+
+    public String getGenre () {
+        return genre;
+    }
+
+    public void setGenre ( String genre ) {
+        this.genre = genre;
     }
 }
