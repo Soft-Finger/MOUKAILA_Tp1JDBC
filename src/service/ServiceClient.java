@@ -1,14 +1,16 @@
 package service;
 
 import model.Client;
+import persistence.JdbcBibliotheque;
 import persistence.JdbcBibliothequeH2;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ServiceClient {
-    private final JdbcBibliothequeH2 jdbcBibliotheque;
 
-    public ServiceClient ( JdbcBibliothequeH2 jdbcBibliotheque ) {
+    private final JdbcBibliotheque jdbcBibliotheque;
+    public ServiceClient ( JdbcBibliotheque jdbcBibliotheque ) {
         this.jdbcBibliotheque = jdbcBibliotheque;
     }
 
@@ -16,15 +18,23 @@ public class ServiceClient {
         jdbcBibliotheque.createDatabase();
     }
 
-    public void save( Client client) {
-        jdbcBibliotheque.save( client );
+    public void sauvegarderClient ( Client client) {
+        jdbcBibliotheque.sauvegarderClient( client );
     }
 
     public Client getClient(int clientId) {
         return jdbcBibliotheque.getClient( clientId );
     }
 
-    public void modifierClient(int id) throws SQLException {
-        jdbcBibliotheque.modifierClient( id );
+    public void modifierClient(Client client) throws SQLException {
+        jdbcBibliotheque.modifierClient( client );
+    }
+
+    public List<Client> getAllClients() {
+        return jdbcBibliotheque.getAllClients();
+    }
+
+    public void supprimerClient(int clientId) {
+        jdbcBibliotheque.supprimerClient( clientId );
     }
 }

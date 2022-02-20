@@ -6,20 +6,17 @@ public class Client {
     private String prenom;
     private String adresse;
     private String type;
-    private int nbMaxPrets;
-    private int nbPret;
-    private int nbPretTotal;
+    private int dureeMaximumPret;
+    boolean retard = false;
 
     public Client ( int idClient , String nom , String prenom , String adresse ,
-                    String type , int nbMaxPrets , int nbPret , int nbPretTotal ) {
+                    String type , int dureeMaximumPret ) {
         this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
         this.type = type;
-        this.nbMaxPrets = nbMaxPrets;
-        this.nbPret = nbPret;
-        this.nbPretTotal = nbPretTotal;
+        this.dureeMaximumPret = dureeMaximumPret;
     }
 
     public Client () {
@@ -65,28 +62,12 @@ public class Client {
         this.type = type;
     }
 
-    public int getNbMaxPrets () {
-        return nbMaxPrets;
+    public int getDureeMaximumPret () {
+        return dureeMaximumPret;
     }
 
-    public void setNbMaxPrets ( int nbMaxPrets ) {
-        this.nbMaxPrets = nbMaxPrets;
-    }
-
-    public int getNbPret () {
-        return nbPret;
-    }
-
-    public void setNbPret ( int nbPret ) {
-        this.nbPret = nbPret;
-    }
-
-    public int getNbPretTotal () {
-        return nbPretTotal;
-    }
-
-    public void setNbPretTotal ( int nbPretTotal ) {
-        this.nbPretTotal = nbPretTotal;
+    public void setDureeMaximumPret ( int dureeMaximumPret ) {
+        this.dureeMaximumPret = dureeMaximumPret;
     }
 
 
@@ -107,7 +88,6 @@ public class Client {
     }
 
 
-
     @Override
     public String toString () {
         return "Client{" +
@@ -116,9 +96,8 @@ public class Client {
                 ", prenom='" + prenom + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", type='" + type + '\'' +
-                ", nbMaxPrets=" + nbMaxPrets +
-                ", nbPret=" + nbPret +
-                ", nbPretTotal=" + nbPretTotal +
+                ", dureeMaximumPret=" + dureeMaximumPret +
+                ", retard=" + retard +
                 '}';
     }
 }

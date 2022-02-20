@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Document {
     private int idDocument;
@@ -8,25 +10,27 @@ public class Document {
     private String auteur;
     private String editeur;
     private Date datePublication;
-    private int nbPretTotal;
-    private int nbExemplaires;
-    private String localisation;
     private  String genre;
+    private boolean disponible;
+    private List<Document> listeDocument = new ArrayList<>();
 
     public Document () {
     }
 
-    public Document ( int idDocument , String titreDocment , String auteur , String editeur , Date datePublication ,
-                      int nbPretTotal , int nbExemplaires , String localisation , String genre ) {
+    public Document ( int idDocument ,
+                      String titreDocment ,
+                      String auteur ,
+                      String editeur ,
+                      Date datePublication ,
+                      String genre,
+                      boolean disponible ) {
         this.idDocument = idDocument;
         this.titreDocument = titreDocment;
         this.auteur = auteur;
         this.editeur = editeur;
         this.datePublication = datePublication;
-        this.nbPretTotal = nbPretTotal;
-        this.nbExemplaires = nbExemplaires;
-        this.localisation = localisation;
         this.genre = genre;
+        this.disponible = disponible;
     }
 
     public int getIdDocument () {
@@ -67,30 +71,6 @@ public class Document {
 
     public void setDatePublication ( Date datePublication ) {
         this.datePublication = datePublication;
-    }
-
-    public int getNbPretTotal () {
-        return nbPretTotal;
-    }
-
-    public void setNbPretTotal ( int nbPretTotal ) {
-        this.nbPretTotal = nbPretTotal;
-    }
-
-    public int getNbExemplaires () {
-        return nbExemplaires;
-    }
-
-    public void setNbExemplaires ( int nbExemplaires ) {
-        this.nbExemplaires = nbExemplaires;
-    }
-
-    public String getLocalisation () {
-        return localisation;
-    }
-
-    public void setLocalisation ( String localisation ) {
-        this.localisation = localisation;
     }
 
     public String getGenre () {
