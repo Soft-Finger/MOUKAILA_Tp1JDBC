@@ -11,8 +11,8 @@ import java.util.List;
 public class JdbcBibliothequeH2 implements JdbcBibliotheque {
 
     private static final String JDBC_DRIVER = "org.h2.Driver";
-    private static final String DB_URL = "jdbc:h2:~/bibliotheque";
-    //private static final String DB_URL = "jdbc:h2:tcp://localhost/~/bibliotheque";
+    //private static final String DB_URL = "jdbc:h2:~/bibliotheque";
+    private static final String DB_URL = "jdbc:h2:tcp://localhost/~/bibliotheque";
 
     private static final String USER = "sa";
     private static final String PASS = "";
@@ -105,7 +105,12 @@ public class JdbcBibliothequeH2 implements JdbcBibliotheque {
             try (ResultSet rs = ps.executeQuery();) {
 
                 if( rs.next()){
-                    return new Client(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"),rs.getString("adresse"),rs.getString("type"),rs.getInt("dureeMaximumPret"));
+                    return new Client(rs.getInt("id"),
+                            rs.getString("nom"),
+                            rs.getString("prenom"),
+                            rs.getString("adresse"),
+                            rs.getString("type"),
+                            rs.getInt("dureeMaximumPret"));
                 }else{ return null;}
             }
 
