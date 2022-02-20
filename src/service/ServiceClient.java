@@ -23,4 +23,8 @@ public class ServiceClient {
     public Client getClient(int clientId) {
         return jdbcBibliotheque.getClient( clientId );
     }
+
+    public void modifierClient(int id) throws SQLException {
+        jdbcBibliotheque.modifierClient( id );
+    }
 }
