@@ -1,10 +1,9 @@
 package model;
 
-import javax.print.Doc;
 import java.util.Date;
 
 public class Dvd extends Document {
-    private int duree;
+    private final int duree;
 
     public Dvd ( int idDocument ,
                  String titreDocment ,

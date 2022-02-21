@@ -66,11 +66,11 @@ public class PretDocument {
         this.listePretsDocuments = listePretsDocuments;
     }
 
-    public void calculerDateRetour(){
+    public void calculerDateRetour () {
         Calendar calendrier = Calendar.getInstance();
-        calendrier.setTime(getDateDebutPret());
-        calendrier.add(Calendar.DATE, getClient().getDureeMaximumPret());
-        setDateFinPret(calendrier.getTime());
+        calendrier.setTime( getDateDebutPret() );
+        calendrier.add( Calendar.DATE , getClient().getDureeMaximumPret() );
+        setDateFinPret( calendrier.getTime() );
     }
 
 }

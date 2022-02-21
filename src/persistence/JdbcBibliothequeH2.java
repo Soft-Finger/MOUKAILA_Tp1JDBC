@@ -22,155 +22,154 @@ public class JdbcBibliothequeH2 implements JdbcBibliotheque {
 
     static {
         try {
-            Class.forName(JDBC_DRIVER);
+            Class.forName( JDBC_DRIVER );
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void createDatabase() {
-        try {
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+    private static void handleException ( Exception exception ) {
+        if ( exception instanceof SQLException ) {
+            SQLException sqlException = (SQLException) exception;
+            System.out.println( "Error Code: " + sqlException.getErrorCode() );
+            System.out.println( "SQL State: " + sqlException.getSQLState() );
+        }
+        System.out.println( "SQLException message: " + exception.getMessage() );
+        System.out.println( "Stacktrace: " );
+        exception.printStackTrace();
+    }
 
-            System.out.println("Creating table in given database...");
+    @Override
+    public void createDatabase () {
+        try {
+            System.out.println( "Connecting to database..." );
+            conn = DriverManager.getConnection( DB_URL , USER , PASS );
+
+            System.out.println( "Creating table in given database..." );
             stmt = conn.createStatement();
-            String sql =  "CREATE TABLE CLIENT" +
+            String sql = "CREATE TABLE CLIENT" +
                     "(id INTEGER not NULL, " +
                     " nom VARCHAR(255), " +
                     " prenom VARCHAR(255), " +
                     " adresse VARCHAR(255), " +
-                    " type VARCHAR(255), " +
+                    " typeClient VARCHAR(255), " +
                     " dureeMaximumPret INTEGER, " +
                     " PRIMARY KEY ( id ))";
-            stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+            stmt.executeUpdate( sql );
+            System.out.println( "Created table in given database..." );
             stmt.close();
             conn.close();
-        } catch(Exception e) {
-            handleException(e);
+        } catch (Exception e) {
+            handleException( e );
         } finally {
-            try{
-                if(stmt != null) stmt.close();
-            } catch(SQLException ignored) {
+            try {
+                if ( stmt != null ) stmt.close();
+            } catch (SQLException ignored) {
             }
             try {
-                if(conn!=null) conn.close();
-            } catch(SQLException se){
-                handleException(se);
+                if ( conn != null ) conn.close();
+            } catch (SQLException se) {
+                handleException( se );
             }
         }
-        System.out.println("Goodbye!");
+        System.out.println( "Goodbye!" );
     }
 
-
-
-    public void sauvegarderClient ( Client client) {
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
+    public void sauvegarderClient ( Client client ) {
+        try (Connection conn = DriverManager.getConnection( DB_URL , USER , PASS ) ;
+             Statement stmt = conn.createStatement()
         ) {
-            System.out.println("Inserting records into the CLIENT table...");
+            System.out.println( "Inserting records into the CLIENT table..." );
             String sql = "INSERT INTO CLIENT VALUES ('" + client.getIdClient() +
                     "', '" + client.getNom() +
                     "', '" + client.getPrenom() +
                     "', '" + client.getAdresse() +
-                    "', '" + client.getType() +
-                    "', '" + client.getDureeMaximumPret() +"');";
+                    "', '" + client.getTypeClient() +
+                    "', '" + client.getDureeMaximumPret() + "');";
 
 
-            stmt.executeUpdate(sql);
-            System.out.println("Inserted records into the Client table...");
+            stmt.executeUpdate( sql );
+            System.out.println( "Inserted records into the Client table..." );
         } catch (SQLException e) {
-            handleException(e);
+            handleException( e );
         }
     }
 
-    private static void handleException(Exception exception) {
-        if (exception instanceof SQLException) {
-            SQLException sqlException = (SQLException) exception;
-            System.out.println("Error Code: " + sqlException.getErrorCode());
-            System.out.println("SQL State: " + sqlException.getSQLState());
-        }
-        System.out.println("SQLException message: " + exception.getMessage());
-        System.out.println("Stacktrace: ");
-        exception.printStackTrace();
-    }
-
-
-    public Client getClient(int clientId) {
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            PreparedStatement ps = conn.prepareStatement("SELECT * from CLIENT WHERE ID='"+clientId+"'");) {
-
-            try (ResultSet rs = ps.executeQuery();) {
-
-                if( rs.next()){
-                    return new Client(rs.getInt("id"),
-                            rs.getString("nom"),
-                            rs.getString("prenom"),
-                            rs.getString("adresse"),
-                            rs.getString("type"),
-                            rs.getInt("dureeMaximumPret"));
-                }else{ return null;}
-            }
-
-        } catch (SQLException e) {
-            handleException(e);
-            return null;
-        }
-    }
-
-    public void supprimerClient ( int clientId) {
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
-        ) {
-            System.out.println("deleting records from the table...");
-            String sql ="delete from CLIENT  where id='"+clientId+"'";
-
-
-            stmt.executeUpdate(sql);
-            System.out.println(" records deleted from the table...");
-        } catch (SQLException e) {
-            handleException(e);
-        }
-    }
-
-    public void modifierClient(Client client) throws SQLException {
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
-        ) {
-            System.out.println("updating records into the table...");
-            String sql ="Update CLIENT set nom='"+client.getNom()+"',prenom='"+client.getPrenom()+"',adresse='"+client.getAdresse()+"',type='"+client.getType()+"' where id='"+client.getIdClient()+"'";
-
-
-            stmt.executeUpdate(sql);
-            System.out.println("updated records into the table...");
-        } catch (SQLException e) {
-            handleException(e);
-        }
-
-    }
-
-    public List<Client> getAllClients() {
-        // Open a connection
-        List<Client> listeClient=new ArrayList<>();
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            PreparedStatement ps = conn.prepareStatement("SELECT * from CLIENT");) {
-
-            // NOTEZ le try à l'intérieur du try
-            try (ResultSet rs = ps.executeQuery();) {
-
-                while( rs.next()){
-                    listeClient.add(new Client(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"),rs.getString("adresse"),rs.getString("type"),rs.getInt("DureeMaximumPret")));
+    public Client getClient ( int clientId ) {
+        try (Connection conn = DriverManager.getConnection( DB_URL , USER , PASS ) ;
+             PreparedStatement ps = conn.prepareStatement( "SELECT * from CLIENT WHERE ID='" + clientId + "'" )) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if ( rs.next() ) {
+                    return new Client( rs.getInt( "id" ) ,
+                            rs.getString( "nom" ) ,
+                            rs.getString( "prenom" ) ,
+                            rs.getString( "adresse" ) ,
+                            rs.getString( "typeClient" ) ,
+                            rs.getInt( "dureeMaximumPret" ) );
+                } else {
+                    return null;
                 }
             }
 
         } catch (SQLException e) {
-            handleException(e);
+            handleException( e );
             return null;
         }
-
-        return listeClient;
     }
 
+    public void supprimerClient ( int clientId ) {
+        try (Connection conn = DriverManager.getConnection( DB_URL , USER , PASS ) ;
+             Statement stmt = conn.createStatement()
+        ) {
+            System.out.println( "deleting records from the table..." );
+            String sql = "delete from CLIENT  where id='" + clientId + "'";
+
+
+            stmt.executeUpdate( sql );
+            System.out.println( " records deleted from the table..." );
+        } catch (SQLException e) {
+            handleException( e );
+        }
+    }
+
+    public void modifierClient ( Client client ) throws SQLException {
+        try (Connection conn = DriverManager.getConnection( DB_URL , USER , PASS ) ;
+             Statement stmt = conn.createStatement()
+        ) {
+            System.out.println( "updating records into the table..." );
+            String sql = "Update CLIENT set nom='" + client.getNom() +
+                    "',prenom='" + client.getPrenom() +
+                    "',adresse='" + client.getAdresse() +
+                    "',typeClient='" + client.getTypeClient() +
+                    "' where id='" + client.getIdClient() + "'";
+
+            stmt.executeUpdate( sql );
+            System.out.println( "updated records into the table..." );
+        } catch (SQLException e) {
+            handleException( e );
+        }
+    }
+
+    public List<Client> getAllClients () {
+        // Open a connection
+        List<Client> listeClient = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection( DB_URL , USER , PASS ) ;
+             PreparedStatement ps = conn.prepareStatement( "SELECT * from CLIENT" )) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while ( rs.next() ) {
+                    listeClient.add( new Client( rs.getInt( "id" ) ,
+                    rs.getString( "nom" ) ,
+                    rs.getString( "prenom" ) ,
+                    rs.getString( "adresse" ) ,
+                    rs.getString( "typeClient" ) ,
+                    rs.getInt( "DureeMaximumPret" ) ) );
+                }
+            }
+
+        } catch (SQLException e) {
+            handleException( e );
+            return null;
+        }
+        return listeClient;
+    }
 }

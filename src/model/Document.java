@@ -10,7 +10,7 @@ public class Document {
     private String auteur;
     private String editeur;
     private Date datePublication;
-    private  String genre;
+    private String genre;
     private boolean disponible;
     private List<Document> listeDocument = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class Document {
                       String auteur ,
                       String editeur ,
                       Date datePublication ,
-                      String genre,
+                      String genre ,
                       boolean disponible ) {
         this.idDocument = idDocument;
         this.titreDocument = titreDocment;

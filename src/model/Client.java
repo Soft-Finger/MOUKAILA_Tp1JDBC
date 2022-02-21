@@ -1,21 +1,21 @@
 package model;
 
 public class Client {
+    boolean retard = false;
     private int idClient;
     private String nom;
     private String prenom;
     private String adresse;
-    private String type;
+    private String typeClient;
     private int dureeMaximumPret;
-    boolean retard = false;
 
     public Client ( int idClient , String nom , String prenom , String adresse ,
-                    String type , int dureeMaximumPret ) {
+                    String typeClient , int dureeMaximumPret ) {
         this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
-        this.type = type;
+        this.typeClient = typeClient;
         this.dureeMaximumPret = dureeMaximumPret;
     }
 
@@ -54,12 +54,12 @@ public class Client {
         this.adresse = adresse;
     }
 
-    public String getType () {
-        return type;
+    public String getTypeClient () {
+        return typeClient;
     }
 
-    public void setType ( String type ) {
-        this.type = type;
+    public void setTypeClient ( String typeClient ) {
+        this.typeClient = typeClient;
     }
 
     public int getDureeMaximumPret () {
@@ -71,19 +71,19 @@ public class Client {
     }
 
 
-    public void ajouterClient(Client client) {
+    public void ajouterClient ( Client client ) {
 
     }
 
-    public void supprimerClientParId(int id) {
+    public void supprimerClientParId ( int id ) {
 
     }
 
-    public void modifierClient(int id) {
+    public void modifierClient ( int id ) {
 
     }
 
-    public void rechercherClient(String nom, String prenom) {
+    public void rechercherClient ( String nom , String prenom ) {
 
     }
 
@@ -95,7 +95,7 @@ public class Client {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", type='" + type + '\'' +
+                ", typeClient='" + typeClient + '\'' +
                 ", dureeMaximumPret=" + dureeMaximumPret +
                 ", retard=" + retard +
                 '}';

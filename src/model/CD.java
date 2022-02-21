@@ -5,10 +5,6 @@ import java.util.Date;
 public class CD extends Document {
     private int duree;
 
-    public int getDuree() {
-        return duree;
-    }
-
     public CD ( int idDocument ,
                 String titreDocment ,
                 String auteur ,
@@ -25,5 +21,9 @@ public class CD extends Document {
                 genre ,
                 disponible );
         this.duree = duree;
+    }
+
+    public int getDuree () {
+        return duree;
     }
 }

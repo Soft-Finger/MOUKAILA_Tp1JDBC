@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface JdbcBibliotheque {
-    public void createDatabase() throws SQLException;
-    public void sauvegarderClient ( Client client);
-    public Client getClient(int clientId);
-    public void supprimerClient ( int clientId);
-    public List<Client> getAllClients();
-    public void modifierClient ( Client client ) throws SQLException;
+    void createDatabase () throws SQLException;
+
+    void sauvegarderClient ( Client client );
+
+    Client getClient ( int clientId );
+
+    void supprimerClient ( int clientId );
+
+    List<Client> getAllClients ();
+
+    void modifierClient ( Client client ) throws SQLException;
 }
